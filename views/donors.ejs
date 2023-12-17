@@ -1,0 +1,329 @@
+<!DOCTYPE ejs>
+<ejs lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/style/all.min.css">
+    <link rel="stylesheet" href="/public/style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <title>List Of Donors</title>
+</head>
+<body>
+<!--start nav-->
+  <nav class="navbar navbar-expand-lg sticky-top bg-white shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="#"><img src="/public/Images/pulse.png"> HopeDrops</a>
+      <button class="navbar-toggler" type="button" 
+       data-bs-toggle="collapse"
+       data-bs-target="#main" 
+       aria-controls="main" 
+       aria-expanded="false" 
+       aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
+
+      <div class="collapse navbar-collapse" id="main">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link p-2 p-lg-3 " aria-current="page" href="/views/home.ejs">Home</a></li>
+          <li class="nav-item"><a class="nav-link p-2 p-lg-3" href="/views/donors.ejs">List of Donors</a></li>
+          <li class="nav-item"><a class="nav-link p-2 p-lg-3" href="/views/aboutus.ejs">About</a></li>
+          <li class="nav-item"><a class="nav-link p-2 p-lg-3" href="/views/MyAccount.ejs">My Account</a></li>           
+        </ul>
+      </div>
+        
+      <div class="flag ms-5 d-none d-lg-block"><img src="/public/Images/JordanFlag.png"></div>
+    </div>
+  </nav>
+<!--end nav-->
+
+<!--start search-->
+  <div class="search pt-5 ">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="searchBox col-11 rounded-3 shadow p-5 position-relative">
+          <form class="d-flex flex-column flex-xl-row gap-3 text-center">   
+            <div class=" w-100">
+            <select class="form-select form-select-lg">
+                <option selected hidden style="display:none" value="">Blood Type</option>
+                <option value="1">A+</option>
+                <option value="2">A-</option>
+                <option value="3">B+</option>
+                <option value="4">B-</option>
+                <option value="5">O+</option>
+                <option value="6">O-</option>
+                <option value="7">AB+</option>
+                <option value="8">AB-</option>
+            </select>
+            </div>
+            <div class=" w-100">
+            <select class="form-select form-select-lg">
+                <option selected hidden style="display:none" value="">Governorate</option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option value="7"></option>
+                <option value="8"></option>
+            </select>
+            </div>
+            <div class="w-100">
+            <select class="form-select form-select-lg" disabled>
+                <option selected hidden style="display:none" value="">Major general</option>
+                <option value="1"></option>
+                <option value="2"></option>
+                <option value="3"></option>
+                <option value="4"></option>
+                <option value="5"></option>
+                <option value="6"></option>
+                <option value="7"></option>
+                <option value="8"></option>
+            </select>
+            </div>
+            <div class=" w-100">
+            <a class="btn searchBtn fw-bold" href="#" type="submit"><i class="fa-solid fa-magnifying-glass fa-lg"></i></a>
+            </div>
+          </form> 
+        </div>         
+      </div>
+    </div>
+  </div>
+<!--end search-->
+
+<!--start Donors-->
+  <div class="donors text-center pt-5 pb-5">
+    <div class="container">
+      <div class="row d-flex align-items-center justify-content-center">
+        
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container ">
+              <div class="row px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Irbid Governorate</span><br>         
+                  <span class="fs-5">Qasaba Irbid District</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">+A</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+               <strong class="fs-4">
+                 <a href="tel:06722613"><i class="fa-solid fa-phone"></i> 06722613</a>
+               </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container">
+              <div class="row  px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Amman Governorate</span><br>
+                  <span class="fs-5">Naour Brigade</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">-O</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+                <strong class="fs-4">
+                <a href="tel:06879334"><i class="fa-solid fa-phone"></i> 06879334</a>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container">
+              <div class="row  px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Amman Governorate</span><br>
+                  <span class="fs-5">Kasbah District of the capital</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">+A</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+                <strong class="fs-4">
+                <a href="tel:06991674"><i class="fa-solid fa-phone"></i> 06991674</a>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container">
+              <div class="row  px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Madaba Governorate</span><br>
+                  <span class="fs-5">Dhiban Brigade</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">-AB</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+                <strong class="fs-4">
+                <a href="tel:06339780"><i class="fa-solid fa-phone"></i> 06339780</a>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container">
+              <div class="row  px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Madaba Governorate</span><br>
+                  <span class="fs-5">Kasbah Madaba Brigade</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">+AB</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+                <strong class="fs-4">
+                <a href="tel:06973210"><i class="fa-solid fa-phone"></i> 06973210</a>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4 mb-3">
+          <div class="DonorsInfo d-flex flex-wrap gap-4 justify-content-center">
+            <div class="container">
+              <div class="row  px-3 py-3">
+                <div class="infos col-9">
+                  <span class="fs-5">Irbid Governorate</span><br>
+                  <span class="fs-5">Ramtha Brigade</span>
+                </div>
+                <div class="col-3 d-flex align-items-center">
+                  <span class="fw-bold fs-4">+O</span>
+                </div>
+              </div>
+              <div class="donorPhone p-3 mt-3">
+                <strong class="fs-4">
+                <a href="tel:06973210"><i class="fa-solid fa-phone"></i> 06973210</a>
+                </strong>
+              </div>
+            </div>
+          </div>
+        </div>       
+      </div>
+    </div>
+  </div>
+<!--end Donors-->
+
+<!--start Statistics-->
+  <div class="Statistics py-5 container">
+    <div class="main-title mt-5 mb-5 position-relative text-center">
+    <h2>Donar Statistics</h2>
+    </div>
+    <div class="d-flex flex-wrap align-items-center justify-content-center">
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">A+</span>
+    <span class="num shadow fs-5 text-white py-2 px-3" data-goal="22">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">A-</span>
+    <span class="num shadow fs-5 text-white py-2 px-3"data-goal="5">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">B+</span>
+    <span class="num shadow fs-5 text-white py-2 px-3"data-goal="18">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">B-</span>
+    <span class="num shadow fs-5 text-white py-2 px-3"data-goal="7">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">O+</span>
+    <span class="num shadow fs-5 text-white py-2 px-3"data-goal="12">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">O-</span>
+    <span class="num shadow fs-5 text-white py-2 px-3"data-goal="9">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">AB+</span>
+    <span class="num shadow fs-5 text-white py-2 px-3" data-goal="30">0</span>
+      </a>
+      <a href="#" class="StatCard d-flex justify-content-center align-items-center mb-4 mx-2 shadow-lg text-decoration-none">
+    <span class="bloodGroup">AB-</span>
+    <span class=" num shadow fs-5 text-white py-2 px-3"data-goal="4">0</span>
+      </a>        
+    </div>
+  </div>
+<!--end Statistics-->
+
+<!--Start footer-->
+  <div class="footer pt-5 pb-5 text-center text-md-start">
+    <div class="container"> 
+      <div class="row">
+        <div class="col-md-6 col-lg-4">
+          <div class="info mb-4">
+            <h5 class="fw-bold" href="#"><span>Hope</span>Drops</h5>
+            <p>If you are unable to donate blood , you can still difference by spreading the word about this website on social media</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="links">
+            <h5 class=>Links</h5>
+            <ul class="list-unstyled lh-lg">
+              <li><a href="home.ejs">Home</a></li>
+              <li><a href="donors.ejs">List Of Donors</a></li>
+              <li><a href="aboutus.ejs">About</a></li>
+              <li><a href="MyAccount.ejs">My Account</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <div class="links">
+            <h5>Contact Us</h5>
+            <ul class="list-unstyled lh-lg">
+              <li>+9627090656044</li>
+              <li>HopeDrops24@gmail.com </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-2">
+          <div class="contact mb-4">
+            <h5 class="text-center">Social Media</h5>
+            <ul class="list-unstyled mt-3 d-flex gap-3 align-items-center justify-content-center">
+              <a class="d-block text-light" href="https://www.facebook.com/"><i class="fa-brands fa-facebook p-2 fa-lg" style="color: #000000;"></i></a>
+              <a class="d-block text-light" href="https://www.instagram.com/"><i class="fa-brands fa-instagram fa-lg instagram  p-2" style="color: #000000;"></i></a>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--End footer-->
+
+<!-- <script src="/main.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/all.min.js"></script>     -->
+
+<script src="/public/js/bootstrap.bundle.min.js"></script>
+<script src="/public/js/all.min.js"></script>
+<script src="/public/main.js"></script>
+
+
+</body>
+</ejs>
