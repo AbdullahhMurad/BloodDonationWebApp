@@ -1,0 +1,85 @@
+<!DOCTYPE ejs>
+<ejs lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/style/bootstrap.min.css">
+    <link rel="stylesheet" href="/public/style/all.min.css">
+    <link rel="stylesheet" href="/public/style/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
+    <title>Search</title>
+</head>
+<body>
+
+
+<%- include('../views/partials/header.ejs') %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-lg-8">
+            <h1 class="text-danger">Where to Donate?</h1>
+            <p>
+                Are you looking for a chance to create a real, positive impact in society? Jordan's blood donation centers present a special opportunity for you to help save lives and support healthcare. Discover the nearest blood donation center in Jordan and join the community of generosity and humanity. Simply put, one drop of your blood can be the hope for many lives. Join us today on this humanitarian journey to make the world a better place, where love and support know no boundaries.
+            </p>
+        </div>
+        <div class="col-lg-4">
+            <img src="/public/Images/Location.svg" alt="Location" class="img-fluid">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 grey-container bg-light p-4 rounded">
+            <h2 class="text-center">Find the nearest place for you to donate</h2>
+            <div class="d-flex justify-content-center mt-3">
+                <input type="text" class="form-control search-bar" placeholder="City">
+                <!-- Add margin to the top of the button -->
+                <button class="btn ms-2" style="background-color: D27878; margin-top: 8px;">
+                    <img src="/public/Images/search.svg" alt="">
+                </button>
+            </div>
+        </div>
+    </div>
+    
+     <!-- Surround text and image in a centered container -->
+     <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="text-center">
+                    <p><strong>The University of Jordan Hospital</strong></p>
+                    <p><strong>Address:</strong> Queen Rania St, Amman</p>
+                    <p><strong>Phone number:</strong> (06) 535 3444</p>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Add your image URL here -->
+                <img src="/public/Images/map.jpg" alt="Hospital Image" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add space between the last image and the footer -->
+<div class="mb-5"></div>
+
+
+</div>
+
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Start footer -->
+<%- include('../views/partials/footer.ejs') %>
+
+<script src="/public/js/bootstrap.bundle.min.js"></script>
+<script src="/public/js/all.min.js"></script>
+<script src="/public/main.js"></script>
+
+</body>
+</ejs>
