@@ -3,6 +3,8 @@ import ejs from 'ejs';
 import bodyParser from "body-parser";
 import pg from "pg";
 import bcrypt from 'bcrypt';
+import session from 'express-session';
+
 
 const port = 3000;
 const app = express();
@@ -16,13 +18,25 @@ const db = new pg.Client({
 });
 db.connect();
 
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: true
+}));
 
 
 
 
 app.set('view engine', 'ejs');
 
-// app.use(express.static('public'));
+
+// The backend was built by Abdullah Sufyan Murad
+// I built the database in Postgres, wrote the backend in Node.js, Express.js, EJS, and assisted in engineering
+// the Frontend.
+// Al Zaytoonah University Of Jordan
+// 2020 - 2024
+// My github account: https://github.com/AbdullahhMurad/BloodDonationWebApp
+
 
 // Step 1: Organize the directories
 
@@ -46,8 +60,28 @@ app.set('view engine', 'ejs');
 // Step 8: I have successfully created the post route for the register.ejs, data gets inserted successfully,
 //         but the user is not being directed to the home page
 
-// lmao, the user was not being directed to the home page because of the order of the routes
+// lol, the user was not being directed to the home page because of the order of the routes
 // order matters in express
+
+// Dynamically displayed donors information that match the user criteria in the Donors Page and Search Page
+
+// Imported bcrypt to encrypt and hash the passwords
+
+// Added columns called birthdate and age in the donors table in the database
+// Added an age field in the register.ejs
+// Added a validation rule for the age field, The minimum age is 18
+// Added the age property in the node js code
+
+
+// What is left for me to do is add the WhatsApp API and other API's
+// And I must add authentication and authorization for a loggedin role
+// When the user is logged in, their information will automatically be displayed whenever they visit the
+// MyAccount page in case they want to update their information
+
+
+
+
+
 
 
 app.use('/public',express.static('public'));
@@ -75,7 +109,60 @@ const getBloodTypeText = (bloodType) => {
   }
 };
 
+
+// Testing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // This is the register post route that will be used
+
+app.post('/views/search.ejs', async (req, res) => {
+  try {
+
+    const { city } = req.body;
+    console.log('City:', city)
+    
+    let query = 'SELECT * FROM HOSPITALS WHERE city = $1';
+    const params = [city];
+
+    const hospitalsResult = await db.query(query, params);
+    const hospitals = hospitalsResult.rows;
+
+    res.render('search.ejs', { hospitals: hospitals, city: city });
+
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    res.status(500).send('Internal Server Error');
+  }
+  
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 app.post('/register', async (req, res)=> {
  
@@ -83,6 +170,7 @@ app.post('/register', async (req, res)=> {
   const email = req.body.email; 
   const phone_number = req.body.phone_number;
   const password = req.body.password;
+  const age = req.body.age;
   const blood_type = req.body.blood_type;
   const city_name = req.body.city;
 
@@ -110,8 +198,8 @@ app.post('/register', async (req, res)=> {
          console.log(hashedPassword);
  
          const result = await db.query(
-         "INSERT INTO DONORS (full_name, email, phone_number, password, blood_type, city_name) VALUES ($1, $2, $3, $4, $5, $6)",
-         [full_name, email, phone_number, hashedPassword, blood_type, city_name]);
+         "INSERT INTO DONORS (full_name, email, phone_number, password, age, blood_type, city_name) VALUES ($1, $2, $3, $4, $5, $6, $7)",
+         [full_name, email, phone_number, hashedPassword, age, blood_type, city_name]);
         //  res.render("secrets");
         res.render("home");
      }
@@ -122,50 +210,129 @@ app.post('/register', async (req, res)=> {
  
  });
 
+ app.post('/login', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
 
+  console.log(password);
 
+  try {
+    if (email.includes("@gmail") || email.includes("@hotmail") || email.includes("@icloud")) {
+      const result = await db.query("SELECT * FROM DONORS WHERE email = $1", [email]);
 
-app.post("/login", async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
- 
-    console.log(password);
- 
-    try {
-        const result = await db.query(
-            "SELECT * FROM DONORS WHERE email = $1",
-            [email]
-        );
- 
-        if (result.rows.length > 0) {
-            const donor = result.rows[0];
       
-            if(!email.includes("@gmail") || !email.includes("@hotmail") || !email.includes("@icloud") ){
-                      res.status(400).send('Enter a valid email!');  
-                }  
-      
-                // Compare the password
-            const validPassword = await bcrypt.compare(password, donor.password);
-            if (validPassword) {
-                console.log(donor.password);
-                res.redirect("home");
-            } else {
-                res.status(400).send('Incorrect password!');
-            }
+      if (result.rows.length > 0) { // If email exists
+        const donor = result.rows[0];
+        const validPassword = await bcrypt.compare(password, donor.password);
+
+        if (validPassword) { // If Password is correct
+          console.log(donor.password);
+          req.session.user = { email: 'user@example.com' /* Add other user details */ };
+
+          res.redirect("home");
         } else {
-          res.status(400).send('User does not exist');
+          res.status(400).send('Incorrect password!');
         }
-          // if (result.rows.length<0){
-          //   res.status(400).send("User does not exist")
-          // }  
-    } catch (error) {
-        console.log(error);
+
+
+
+      } else {
+            res.status(400).send('User does not exist');
+      } 
+      
+    
+    } else {
+      res.status(400).send('Enter a valid email!');
     }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
 });
 
 
 
-// app.post for the login form without before importing bcrypt
+
+//  app.post('/login', async (req, res) => {
+//   const email = req.body.email;
+//   const password = req.body.password;
+
+//   console.log(password);
+
+//   try {
+
+//         if(email.includes("@gmail") || email.includes("@hotmail") || email.includes("@icloud") ){
+                                           
+//                const result = await db.query(
+//               "SELECT * FROM DONORS WHERE email = $1",
+//                 [email]
+//                   );           
+                  
+//                   if (result.rows.length > 0) { // If email exists
+//                     const donor = result.rows[0];
+//                    const validPassword = await bcrypt.compare(password, donor.password);
+//           if (validPassword) {  // If Password is correct
+//               console.log(donor.password);
+//               res.redirect("home");
+//           } 
+//         }
+//           else if(!validPassword) {
+//               res.status(400).send('Incorrect password!');
+//           }
+//        else if (result.rows.length < 0) {
+//         res.status(400).send('User does not exist');
+//       }        
+//       }  
+//       else{
+//              res.status(400).send('Enter a valid email!'); 
+//         }
+//                 } catch (error) {
+//                       console.log(error);
+//                   }
+//                 });
+
+
+// app.post('/login', async (req, res) => {
+//     const email = req.body.email;
+//     const password = req.body.password;
+ 
+//     console.log(password);
+ 
+//     try {
+//         const result = await db.query(
+//             "SELECT * FROM DONORS WHERE email = $1",
+//             [email]
+//         );
+ 
+//         if (result.rows.length > 0) {
+//             const donor = result.rows[0];
+      
+//             if(!email.includes("@gmail") || !email.includes("@hotmail") || !email.includes("@icloud") ){
+//                       res.status(400).send('Enter a valid email!');  
+//                 }  
+      
+//                 // Compare the password
+//             const validPassword = await bcrypt.compare(password, donor.password);
+//             if (validPassword) {
+//                 console.log(donor.password);
+//                 res.redirect("home");
+//             } else {
+//                 res.status(400).send('Incorrect password!');
+//             }
+//         } else {
+//           res.status(400).send('User does not exist');
+//         }
+//           // if (result.rows.length<0){
+//           //   res.status(400).send("User does not exist")
+//           // }  
+//     } catch (error) {
+//         console.log(error);
+//     }
+// });
+
+
+
+// app.post for the login form before importing bcrypt
 
 // app.post('/login', async (req, res) => {
 //   const { email, password } = req.body;
@@ -195,7 +362,7 @@ app.post("/login", async (req, res) => {
 
 
 
-app.post('/donors', async (req, res) => {
+app.post('/views/donors', async (req, res) => {
   try {
     const { bloodType, city } = req.body;
     console.log('Blood Type:', bloodType);
@@ -229,40 +396,8 @@ app.post('/donors', async (req, res) => {
     console.error('Error fetching data:', error);
     res.status(500).send('Internal Server Error');
   }
+  
 });
-
-
-
-
-// Add the following function to generate the SQL query based on selected criteria
-const generateDonorsQuery = (bloodType, city) => {
-  let query = 'SELECT * FROM donors WHERE city_name = $1';
-  const params = [city];
-
-  if (bloodType) {
-    // Modify this part based on your compatibility criteria
-    const compatibleBloodTypes = getCompatibleBloodTypes(bloodType);
-    const bloodTypeCondition = compatibleBloodTypes.map((_, index) => `$${index + 2}`).join(', ');
-
-    query += ` AND blood_type IN (${bloodTypeCondition})`;
-    params.push(...compatibleBloodTypes);
-  }
-
-  return { query, params };
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Function to get compatible blood types
 const getCompatibleBloodTypes = (selectedBloodType) => {
@@ -291,6 +426,27 @@ const bloodTypeMapping = {
   7: 'O+',
   8: 'O-',
 };
+
+
+
+// Continue later
+
+// app.get('MyAccount', async (req, res) => {
+
+//   try {
+//       const full_name = req.body.full_name;
+//       const donor = await fetchUserFromDatabase
+      
+
+
+
+//   } catch (error) {
+    
+//   }
+
+// });
+
+
 
 
 
@@ -329,6 +485,15 @@ app.get('/home', async (req, res) => {
 });
 
 
+
+
+
+
+
+
+
+
+
 // GET Routes
 
 app.get('/', (req, res) => {
@@ -339,13 +504,47 @@ app.get('/aboutus', (req, res) => {
   res.render('aboutus.ejs', {});
 });
 
-app.get('/donors', (req, res) => {
-  res.render('donors.ejs', {});
+
+
+app.get('/donors',  async (req, res) => {
+  try {
+    // Query the database to get distinct blood types
+    const bloodTypesResult = await db.query('SELECT DISTINCT blood_type FROM donors');
+    const bloodTypes = bloodTypesResult.rows;
+
+    // Query the database to get all cities
+   
+    const citiesResult = await db.query('SELECT * FROM city');
+    // const citiesResult = await db.query('SELECT city_name from donors')
+    const cities = citiesResult.rows;
+
+    // Query the database to get a default set of 12 donors
+    // Make sure the limit is 12 or a closer number to that amount to display donors informaion by default 
+    // prior to the users request
+    const defaultDonorsResult = await db.query('SELECT * FROM donors LIMIT 12');
+    const defaultDonors = defaultDonorsResult.rows;
+
+    // Render the donors.ejs view and pass the blood types, cities, and default donors as variables
+    res.render('donors.ejs', { blood_type: bloodTypes, city: cities, donors: defaultDonors, getBloodTypeText: getBloodTypeText, getCompatibleBloodTypes: getCompatibleBloodTypes});
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Handle other errors if needed
+    res.status(500).send('Internal Server Error');
+  }
 });
+
+
 
 app.get('/home', (req, res) => {
   res.render('home.ejs', {});
 });
+
+app.get('/donors.ejs', async (req, res) => {
+    const defaultDonorsResult = await db.query('SELECT * FROM donors LIMIT 12');
+    const defaultDonors = defaultDonorsResult.rows;
+  res.render('donors.ejs', {donors: defaultDonors});
+});
+
 
 app.get('/login', (req, res) => {
   res.render('login.ejs', {});
@@ -370,8 +569,34 @@ app.get('/views/home.ejs', (req, res) => {
   res.render('home.ejs', {});
 });
 
-app.get('/views/donors.ejs', (req, res) => {
-  res.render('donors.ejs', {});
+
+// I forgot to add the .ejs in the get route, which caused the page not to be rendered and displayed
+app.get('/views/donors.ejs',  async (req, res) => {
+  try {
+    // Query the database to get distinct blood types
+    const bloodTypesResult = await db.query('SELECT DISTINCT blood_type FROM donors');
+    const bloodTypes = bloodTypesResult.rows;
+
+    // Query the database to get all cities
+   
+    const citiesResult = await db.query('SELECT * FROM city');
+    // const citiesResult = await db.query('SELECT city_name from donors')
+    const cities = citiesResult.rows;
+
+    // Query the database to get a default set of 12 donors
+    // Make sure the limit is 12 or a closer number to that amount to display donors informaion by default 
+    // prior to the users request
+    const defaultDonorsResult = await db.query('SELECT * FROM donors LIMIT 12');
+    const defaultDonors = defaultDonorsResult.rows;
+
+    // Render the donors.ejs view and pass the blood types, cities, and default donors as variables
+    res.render('donors.ejs', { blood_type: bloodTypes, city: cities, donors: defaultDonors, getBloodTypeText: getBloodTypeText, getCompatibleBloodTypes: getCompatibleBloodTypes});
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    // Handle other errors if needed
+    res.status(500).send('Internal Server Error');
+  }
+
 });
 
 app.get('/views/aboutus.ejs', (req, res) => {
@@ -391,10 +616,11 @@ app.get('/views/login.ejs', (req, res) => {
 });
 
 app.get('/views/search.ejs', (req, res) => {
-  res.render('search.ejs', {});
+  res.render('search.ejs', {hospitals: 0});
 });
 
-
+ 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
 });
+ 
