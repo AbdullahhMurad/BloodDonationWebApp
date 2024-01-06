@@ -11,9 +11,32 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@600&display=swap" rel="stylesheet">
     <title>My Account</title>
 </head>
+
+  <style>
+/* .main-btn:hover{
+    background-color: var(--red-color);
+    color: black;
+
+} */
+
+  .update-btn{
+      background-color: #D27878 !important;
+      color: black !important;
+  }
+
+
+    
+  </style>
+
+
+
+
 <body>
 <!--start nav-->
 <%- include('../views/partials/header.ejs') %>
+
+
+
 
  
 <!--start Account-->
@@ -26,14 +49,13 @@
           <div class=" mb-5">
             <h3>My Account</h3>
             <div class="profileImage ">
-              <img src="/public/Images/profile.png" class="mt-3 mb-3" id="profile-pic">                   
-              <label for="input-file" class="main-btn btn"> Upload Image</label>
-              <input type="file" accept="image/jpg , image/jpeg , image/png" id="input-file" style="display:none" >  
+                             
+              
             </div>
             
             <!-- <a class="btn main-btn fw-bold" href="#">Edit profile</a>                 -->
          
-            <button class="btn main-btn fw-bold" type="button" name="edit">Edit profile</button>
+
             
           </div>
         </div>
@@ -41,57 +63,67 @@
         <div class="col-lg-6">
           <div class="mb-3">
             <label class="form-label">Full Name</label>
-            <input type="text" class="form-control" required>
+            <input type="text" class="form-control" name="full_name" value="" required>
           </div>
           <div class="mb-3">
             <label class="form-label">Email</label>
-            <input type="email" class="form-control" required>
+            <input type="email" class="form-control" name="email" value=""required>
           </div>
           <div class="mb-3">
             <label class="form-label">phone Number</label>
-            <input type="text" class="form-control" required>
+            <input type="text" class="form-control" name="phone_number" value="" required>
           </div>
                    
+          <div class="mb-3">
+            <label class="form-label">Age</label>
+            <input type="text" class="form-control" name="age" value="" required>
+          </div>
+
+
         </div>
 
         <div class="col-lg-6">
           <div class="mb-3">
             <label class="form-label">Blood Type</label>
             <select class="form-select " required>
-              <option selected hidden style="display:none" value="bloodtype"></option>
-              <option value="1">A+</option>
+              <option selected hidden style="display:none" value=""></option>
+              <!-- <option value="1">A+</option>
               <option value="2">A-</option>
               <option value="3">B+</option>
               <option value="4">B-</option>
               <option value="5">O+</option>
               <option value="6">O-</option>
               <option value="7">AB+</option>
-              <option value="8">AB-</option>
+              <option value="8">AB-</option> -->
             </select>
           </div>
           <div class="mb-3">
             <label class="form-label">City</label>
             <select class="form-select" required>
-              <option selected hidden style="display:none" value="city"></option>
-              <option value="amman">Amman</option>
+              <option selected hidden style="display:none" value=""></option>
+              <!-- <option value="amman">Amman</option>
               <option value="madaba">Madaba</option>
               <option value="irbid">Irbid</option>
               <option value="zarqa">Zarqa</option>
               <option value="mafraq">Mafraq</option>
-              <option value="ajloun">Ajloun</option>
+              <option value="ajloun">Ajloun</option> -->
 
             </select>
           </div>
           
           <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="pa" class="form-control" required>
+            <input type="pa" class="form-control"  value="" required>
           </div>    
     
          </div>
       </div>
+      <button class="btn update-btn fw-bold" type="button" style="width: 200px;"  name="edit">Update</button>
     </div>
   </div>
+  
+
+
 </form>
 <!--end Acount-->
 

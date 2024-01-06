@@ -21,9 +21,7 @@ CREATE TABLE hospitals (
     hospital_name VARCHAR(255) NOT NULL,
 	city VARCHAR(255) NOT NULL,
 	street VARCHAR(255) NOT NULL,	
-    email VARCHAR(255) NOT NULL UNIQUE,
     phone_number VARCHAR(15),
-    specialization VARCHAR(255)
 );
 
 CREATE TABLE blood_donation (

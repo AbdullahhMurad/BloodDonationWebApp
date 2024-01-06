@@ -25,7 +25,7 @@ body{
 }
 .main-btn:hover{
     background-color: var(--red-color);
-    color: white;
+    color: #D27878;
 }
 .main-title{
     color: var(--red-color);

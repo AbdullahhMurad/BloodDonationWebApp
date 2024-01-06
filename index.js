@@ -112,6 +112,62 @@ const getBloodTypeText = (bloodType) => {
 
 // Testing
 
+// The routes below will only be implemented after the implementation of authentication and authorization
+
+
+// app.get('/views/MyAccount.ejs', async (req, res) => {
+//   // Check if the user is logged in
+//   if (req.session.donors) {
+//     try {
+//       // If logged in, retrieve user information from the database based on the logged-in user's email
+//       const donorsEmail = req.session.donors.email;
+//       const donorsQuery = 'SELECT full_name, email, phone_number, password, age, blood_type, city_name FROM donors WHERE email = $1';
+//       const donorsResult = await db.query(donorsQuery, [donorsEmail]);
+
+//       if (donorsResult.rows.length > 0) {
+//         // If user information is found, pass it to the MyAccount.ejs template
+//         const donors = donorsResult.rows[0];
+//         res.render('MyAccount.ejs', { donors: donors }); // Pass the user data to the template
+//       } else {
+//         // Handle the case where user information is not found
+//         res.status(404).send('Donor not found');
+//       }
+//     } catch (error) {
+//       console.error('Error fetching user information:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   } else {
+//     // If not logged in, redirect to the login page or handle it as per your requirement
+//     res.redirect('/MyAccount.ejs');
+//   }
+// });
+
+// app.get('/MyAccount.ejs', async (req, res) => {
+//   // Check if the user is logged in
+//   if (req.session.donors) {
+//     try {
+//       // If logged in, retrieve user information from the database based on the logged-in user's email
+//       const donorsEmail = req.session.donors.email;
+//       const donorsQuery = 'SELECT full_name, email, phone_number, password, age, blood_type, city_name FROM donors WHERE email = $1';
+//       const donorsResult = await db.query(donorsQuery, [donorsEmail]);
+
+//       if (donorsResult.rows.length > 0) {
+//         // If user information is found, pass it to the MyAccount.ejs template
+//         const donors = donorsResult.rows[0];
+//         res.render('MyAccount.ejs', { donors: donors }); // Pass the user data to the template
+//       } else {
+//         // Handle the case where user information is not found
+//         res.status(404).send('Donor not found');
+//       }
+//     } catch (error) {
+//       console.error('Error fetching user information:', error);
+//       res.status(500).send('Internal Server Error');
+//     }
+//   } else {
+//     // If not logged in, redirect to the login page or handle it as per your requirement
+//     res.redirect('/login');
+//   }
+// });
 
 
 
@@ -125,10 +181,6 @@ const getBloodTypeText = (bloodType) => {
 
 
 
-
-
-
-// This is the register post route that will be used
 
 app.post('/views/search.ejs', async (req, res) => {
   try {
@@ -152,7 +204,15 @@ app.post('/views/search.ejs', async (req, res) => {
 });
 
 
+app.post('/forgot', async (req, res) => {
 
+  const email = req.body.email;
+
+  console.log(email);
+
+  res.send(`A code has been sent to ${email}`);
+
+});
 
 
 
@@ -563,6 +623,22 @@ app.get('/search', (req, res) => {
 });
 
 
+
+
+
+
+app.get('/forgot.ejs', (req, res) => {
+  res.render('forgot.ejs', {});
+});
+
+app.get('/views/forgot.ejs', (req, res) => {
+  res.render('forgot.ejs', {});
+});
+
+
+
+
+
 // Test
 
 app.get('/views/home.ejs', (req, res) => {
@@ -598,6 +674,17 @@ app.get('/views/donors.ejs',  async (req, res) => {
   }
 
 });
+
+app.get('/views/home.ejs', (req, res) => {
+  res.render('home.ejs', {});
+});
+
+
+app.get('/views/home.ejs', (req, res) => {
+      res.render('home.ejs', {});
+});
+
+
 
 app.get('/views/aboutus.ejs', (req, res) => {
   res.render('aboutus.ejs', {});

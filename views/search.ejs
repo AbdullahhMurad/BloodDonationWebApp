@@ -32,33 +32,53 @@
     <div class="row">
         <div class="col-lg-12 grey-container bg-light p-4 rounded">
             <h2 class="text-center">Find the nearest place for you to donate</h2>
-            <div class="d-flex justify-content-center mt-3">
-                <input type="text" class="form-control search-bar" placeholder="City">
-                <!-- Add margin to the top of the button -->
+   
+            <form action="search.ejs" method="POST">
+            <div class="d-flex justify-content-center mt-3">           
+                <select name="city" class="form-select form-select-lg" required>
+                    <option selected hidden style="display:none" value="">City</option>
+                    <option value="Amman">Amman</option>
+                    <option value="Madaba">Madaba</option>
+                    <option value="Irbid">Irbid</option>
+                    <option value="Zarqa">Zarqa</option>
+                    <option value="Mafraq">Mafraq</option>
+                    <option value="Ajloun">Ajloun</option>
+                </select>
                 <button class="btn ms-2" style="background-color: D27878; margin-top: 8px;">
                     <img src="/public/Images/search.svg" alt="">
                 </button>
             </div>
         </div>
     </div>
+</form>
+
     
-     <!-- Surround text and image in a centered container -->
-     <div class="container mt-5">
+    <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <div class="text-center">
-                    <p><strong>The University of Jordan Hospital</strong></p>
-                    <p><strong>Address:</strong> Queen Rania St, Amman</p>
-                    <p><strong>Phone number:</strong> (06) 535 3444</p>
+          <% if (hospitals && hospitals.length > 0) { %>
+            <% hospitals.forEach( hospital => { %>
+              <div class="col-12 col-sm-6 col-lg-4 mb-4">
+                <div class="card" style="background-color: #D27878;">
+                  <div class="card-body" style="background-color: f1f1f1;">
+                    <h5 class="card-title" style="color: #D27878;"><%= hospital.hospital_name %></h5>
+                    <p class="card-text">City: <%= hospital.city %></p>
+                    <p class="card-text">City: <%= hospital.street %></p>
+                    <p class="card-text">Phone: <%= hospital.phone_number %></p>
+                  </div>
                 </div>
-            </div>
-            <div class="col-lg-6">
-                <!-- Add your image URL here -->
-                <img src="/public/Images/map.jpg" alt="Hospital Image" class="img-fluid">
-            </div>
+              </div>
+            <% }); %>
+          <% } else { %>
+            <p>No hospitals found.</p>
+          <% } %>
         </div>
-    </div>
-</div>
+      </div>
+
+
+
+
+
+
 
 <!-- Add space between the last image and the footer -->
 <div class="mb-5"></div>

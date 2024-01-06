@@ -28,6 +28,10 @@
       <input class="form-control mb-3" type="text" name="email" id="email" placeholder="Email@gmail.com" aria-label="default input example" required>
       <input class="form-control mb-3" type="text" name="phone_number" id="phonenumber" placeholder="phone number" aria-label="default input example" required>
       <input type="password" id="inputPassword" class="form-control mb-3" name="password" placeholder="password" aria-describedby="passwordHelpBlock" required>
+      
+      <!-- Validate in the node code, if < 18 = dont allow else allow -->
+      <input type="text" id="age" class="form-control mb-3" name="age" placeholder="Age" aria-describedby="Age" required>
+
       <select class="form-select mb-3 " id="bloodType" name="blood_type" required> 
         <option selected hidden style="display:none" value="">Blood Type</option>
         <option value="1">A+</option>
@@ -74,6 +78,12 @@ function validateForm() {
   var email = document.getElementById('email').value;
   var phoneNumber = document.getElementById('phonenumber').value;
   var password = document.getElementById('inputPassword').value;
+  var age = document.getElementById('age').value;
+
+  if(age < 18){
+    alert("The minimum age is 18 years")
+  }
+
 
   if (bloodType === "") {
     alert('Please select a blood type.');
