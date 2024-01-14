@@ -62,13 +62,13 @@
                   <div class="card-body" style="background-color: f1f1f1;">
                     <h5 class="card-title" style="color: #D27878;"><%= hospital.hospital_name %></h5>
                     <p class="card-text">City: <%= hospital.city %></p>
-                    <p class="card-text">City: <%= hospital.street %></p>
+                    <p class="card-text">Street: <%= hospital.street %></p>
                     <p class="card-text">Phone: <%= hospital.phone_number %></p>
                   </div>
                 </div>
               </div>
             <% }); %>
-          <% } else { %>
+          <% } else if (hospitals && hospitals.length === 0) { %> { %>
             <p>No hospitals found.</p>
           <% } %>
         </div>
